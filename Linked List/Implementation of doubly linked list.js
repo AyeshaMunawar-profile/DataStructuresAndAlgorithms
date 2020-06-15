@@ -199,6 +199,30 @@ class linkedList {
             return false;
         }
     }
+
+    lookUp(key) {
+        let currentNode = this.head;
+        while (currentNode) {
+            if (!(currentNode.key.localeCompare(key))) { // if the given key and the current node's key is equal
+                this.printNode(currentNode);
+                return true;
+            }
+
+            currentNode = currentNode.nextPtr;
+
+        }
+        console.log("The node with the given key i.e. " + key + " not found ");
+        return false;
+    }
+
+
+    printNode(node, index) {
+        if (index) {
+            console.log("Node " + index + "\n key:" + node.key + "\n value:" + node.value + "\n");
+        } else {
+            console.log("key:" + node.key + "\n value:" + node.value + "\n");
+        }
+    }
 }
 
 
@@ -209,6 +233,7 @@ myLinkedList.insertAtIndex(2, "cream", 2765);
 myLinkedList.printLinkedList();
 myLinkedList.deleteAtIndex(3);
 myLinkedList.printLinkedList();
+myLinkedList.lookUp("Nutella");
 // myLinkedList.printLinkedListReversed();
 // myLinkedList.unshiftNode("cream", 875648);
 // myLinkedList.printLinkedList();
