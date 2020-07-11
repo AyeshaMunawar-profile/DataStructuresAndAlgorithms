@@ -220,11 +220,12 @@ class linkedList {
 
 
     }
+}
 
 
-    let myLinkedList = new linkedList();
-    myLinkedList.populateLinkedList(fruits, prices); // fill linked list with corresponding keys and values arrays
-    myLinkedList.printLinkedList();
-    myLinkedList.reverseLinkedList();
-    myLinkedList.printLinkedList();
+let myLinkedList = new linkedList();
+myLinkedList.populateLinkedList(fruits, prices); // fill linked list with corresponding keys and values arrays
+myLinkedList.printLinkedList();
+myLinkedList.reverseLinkedList();
+myLinkedList.printLinkedList();
 
