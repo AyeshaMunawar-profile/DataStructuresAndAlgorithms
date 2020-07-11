@@ -220,7 +220,6 @@ class linkedList {
         return false;
     }
 
-
     printNode(node, index) {
         if (index) {
             console.log("Node " + index + "\n value:" + node.value + "\n");
