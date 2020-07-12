@@ -1,6 +1,12 @@
+// Data set 1
 const fruits = ['Apples', 'Grapes', 'Pears', 'Banana', 'Nutella'];
 const prices = [1000, 2000, 4000, 200, 500];
-
+// Data set 2
+// const fruits = ['Apples'];
+// const prices = [1000];
+// Data set 3
+// const fruits = null;
+// const prices = null;
 class node {
     constructor(key, value, nextPtr) {
         this.key = key;
@@ -18,13 +24,11 @@ class linkedList {
     }
 
     isInputInValid(value) {
-        if (value === null || value === undefined || value === NaN) {
-            return true;
-        }
-        return false;
+        return value === null || value === undefined || isNaN(value);
     }
 
-    populateLinkedList(keys, values) { // fill the linked list with keys and value arrays fill corresponding keys and value in node
+// fill the linked list with keys and value arrays fill corresponding keys and value in node
+    populateLinkedList(keys, values) {
         if (keys.length === values.length) {
             for (let i = 0; i < keys.length; i++) {
                 this.pushNode(keys[i], values[i]);
@@ -58,7 +62,9 @@ class linkedList {
                 i++;
             }
 
-            console.log("Summary: \n " + "length of linked list: " + this.size + "\n Head node: \n   " + this.head.key + "\n   " + this.head.value + "\n Tail node: \n   " + this.tail.key + "\n   " + this.tail.value + "\n----------------------------------------------------------------");
+            console.log("Summary: \n " + "length of linked list: " + this.size + "\n Head node: \n   " + this.head.key
+                + "\n   " + this.head.value + "\n Tail node: \n   " + this.tail.key + "\n   " + this.tail.value
+                + "\n----------------------------------------------------------------");
         }
     }
 
@@ -116,7 +122,7 @@ class linkedList {
         }
     }
 
-    shiftNode() { // remove node from the begining of the linked list
+    shiftNode() { // remove node from the beginning of the linked list
         if (!this.tail && !this.head) { // empty linked list
             console.log("Empty linked list nothing can be remover from the start of linked list");
             return null;
@@ -132,7 +138,8 @@ class linkedList {
 
     insertAtIndex(index, key, value) { // insert from index 0 to size
         if (this.isInputInValid(index) || this.isInputInValid(key) || this.isInputInValid(value)) { // input validation
-            console.log("Please enter a correct index i.e. between 0 and " + this.size + " \n check if key and value entered are correct");
+            console.log("Please enter a correct index i.e. between 0 and " + this.size
+                + " \n check if key and value entered are correct");
             return false;
         } else {
             if (index > this.size) {
@@ -148,8 +155,7 @@ class linkedList {
                 for (let i = 0; i < index - 1; i++) {
                     currentNode = currentNode.nextPtr;
                 }
-                let newNode = new node(key, value, currentNode.nextPtr);
-                currentNode.nextPtr = newNode;
+                currentNode.nextPtr = new node(key, value, currentNode.nextPtr);
                 this.size++;
                 return true;
             } else {
@@ -161,7 +167,8 @@ class linkedList {
 
     deleteAtIndex(index) { // delete from index 0 to tail
         if (this.isInputInValid(index)) {
-            console.log("Please enter a correct index i.e between 0 and " + this.size - 1 + " \n check if key and value entered are correct");
+            console.log("Please enter a correct index i.e between 0 and " + this.size - 1
+                + " \n check if key and value entered are correct");
             return false;
         } else if (index > this.size - 1) {
             console.log("Cannot delete the node as the index is greater than the size of the linked list");
@@ -205,20 +212,47 @@ class linkedList {
 
         // 1 check for empty linked list
         if (!this.size || !this.head || !this.tail) {
-            console.log("Oops! Cannot reverese an empty linked list");
+            console.log("Oops! Cannot reverse an empty linked list");
             return false;
         }
         // 2 check for linked list with one element
         else if (this.size === 1 && this.head === this.tail) {
-            console.log("Linked list has only one element");
+            console.log("Linked list has only one node i.e. ", this.head);
             this.printLinkedList();
         }
+
+
         // 3 loop through the linked list until the last node
         else {
-
+            let currentNode, previousNode, nextNode, counter;
+            currentNode = this.head;
+            previousNode = null;
+            counter = 0;
+            console.log("Reversing the linked list ...");
+            while (currentNode) { // loop through all of the nodes
+                // 3.1 set the value of the next node first if it is null then the last node is reached
+                nextNode = currentNode.nextPtr ? currentNode.nextPtr : null;
+                // Check for head and tail node
+                // 3.2 (a) check for the head of the node to replace it with tail
+                // if previous node is th first node i.e head node make it tail node
+                if (previousNode && previousNode === this.head) {
+                    previousNode.nextPtr = null;
+                    this.tail = previousNode;
+                }
+                // 3.2 (b) check for the tail of the node to replace it with head
+                if (!nextNode) { // if current node is th last node i.e tail node make it head node
+                    this.head = currentNode;
+                }
+                // 4. reverse the direction of current node pointing to the next node instead make it point tot the
+                // previous node
+                currentNode.nextPtr = previousNode
+                // 5. move previous node up the list
+                previousNode = currentNode;
+                // 6. move current node up the list
+                currentNode = nextNode;
+                counter++;
+            }
         }
-
-
     }
 }
 
